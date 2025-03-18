@@ -27,7 +27,7 @@ dependencies = [
 
 [[package]]
 name = "alloy-hardforks"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "alloy-chains",
  "alloy-eip2124",
@@ -39,7 +39,7 @@ dependencies = [
 
 [[package]]
 name = "alloy-op-hardforks"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "alloy-hardforks",
  "auto_impl",
