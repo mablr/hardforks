@@ -1,4 +1,4 @@
-use crate::{hardfork, ForkCondition};
+use crate::{ethereum::mainnet::*, hardfork, ForkCondition};
 use alloc::vec::Vec;
 use alloy_chains::Chain;
 use alloy_primitives::{uint, U256};
@@ -70,22 +70,23 @@ impl EthereumHardfork {
     /// Retrieves the activation block for the specified hardfork on the Ethereum mainnet.
     pub const fn mainnet_activation_block(&self) -> Option<u64> {
         match self {
-            Self::Frontier => Some(0),
-            Self::Homestead => Some(1150000),
-            Self::Dao => Some(1920000),
-            Self::Tangerine => Some(2463000),
-            Self::SpuriousDragon => Some(2675000),
-            Self::Byzantium => Some(4370000),
-            Self::Constantinople | Self::Petersburg => Some(7280000),
-            Self::Istanbul => Some(9069000),
-            Self::MuirGlacier => Some(9200000),
-            Self::Berlin => Some(12244000),
-            Self::London => Some(12965000),
-            Self::ArrowGlacier => Some(13773000),
-            Self::GrayGlacier => Some(15050000),
-            Self::Paris => Some(15537394),
-            Self::Shanghai => Some(17034870),
-            Self::Cancun => Some(19426587),
+            Self::Frontier => Some(MAINNET_FRONTIER_BLOCK),
+            Self::Homestead => Some(MAINNET_HOMESTEAD_BLOCK),
+            Self::Dao => Some(MAINNET_DAO_BLOCK),
+            Self::Tangerine => Some(MAINNET_TANGERINE_BLOCK),
+            Self::SpuriousDragon => Some(MAINNET_SPURIOUS_DRAGON_BLOCK),
+            Self::Byzantium => Some(MAINNET_BYZANTIUM_BLOCK),
+            Self::Constantinople => Some(MAINNET_CONSTANTINOPLE_BLOCK),
+            Self::Petersburg => Some(MAINNET_PETERSBURG_BLOCK),
+            Self::Istanbul => Some(MAINNET_ISTANBUL_BLOCK),
+            Self::MuirGlacier => Some(MAINNET_MUIR_GLACIER_BLOCK),
+            Self::Berlin => Some(MAINNET_BERLIN_BLOCK),
+            Self::London => Some(MAINNET_LONDON_BLOCK),
+            Self::ArrowGlacier => Some(MAINNET_ARROW_GLACIER_BLOCK),
+            Self::GrayGlacier => Some(MAINNET_GRAY_GLACIER_BLOCK),
+            Self::Paris => Some(MAINNET_PARIS_BLOCK),
+            Self::Shanghai => Some(MAINNET_SHANGHAI_BLOCK),
+            Self::Cancun => Some(MAINNET_CANCUN_BLOCK),
             _ => None,
         }
     }
@@ -384,24 +385,24 @@ impl EthereumHardfork {
     /// Ethereum mainnet list of hardforks.
     pub const fn mainnet() -> [(Self, ForkCondition); 18] {
         [
-            (Self::Frontier, ForkCondition::Block(0)),
-            (Self::Homestead, ForkCondition::Block(1150000)),
-            (Self::Dao, ForkCondition::Block(1920000)),
-            (Self::Tangerine, ForkCondition::Block(2463000)),
-            (Self::SpuriousDragon, ForkCondition::Block(2675000)),
-            (Self::Byzantium, ForkCondition::Block(4370000)),
-            (Self::Constantinople, ForkCondition::Block(7280000)),
-            (Self::Petersburg, ForkCondition::Block(7280000)),
-            (Self::Istanbul, ForkCondition::Block(9069000)),
-            (Self::MuirGlacier, ForkCondition::Block(9200000)),
-            (Self::Berlin, ForkCondition::Block(12244000)),
-            (Self::London, ForkCondition::Block(12965000)),
-            (Self::ArrowGlacier, ForkCondition::Block(13773000)),
-            (Self::GrayGlacier, ForkCondition::Block(15050000)),
+            (Self::Frontier, ForkCondition::Block(MAINNET_FRONTIER_BLOCK)),
+            (Self::Homestead, ForkCondition::Block(MAINNET_HOMESTEAD_BLOCK)),
+            (Self::Dao, ForkCondition::Block(MAINNET_DAO_BLOCK)),
+            (Self::Tangerine, ForkCondition::Block(MAINNET_TANGERINE_BLOCK)),
+            (Self::SpuriousDragon, ForkCondition::Block(MAINNET_SPURIOUS_DRAGON_BLOCK)),
+            (Self::Byzantium, ForkCondition::Block(MAINNET_BYZANTIUM_BLOCK)),
+            (Self::Constantinople, ForkCondition::Block(MAINNET_CONSTANTINOPLE_BLOCK)),
+            (Self::Petersburg, ForkCondition::Block(MAINNET_PETERSBURG_BLOCK)),
+            (Self::Istanbul, ForkCondition::Block(MAINNET_ISTANBUL_BLOCK)),
+            (Self::MuirGlacier, ForkCondition::Block(MAINNET_MUIR_GLACIER_BLOCK)),
+            (Self::Berlin, ForkCondition::Block(MAINNET_BERLIN_BLOCK)),
+            (Self::London, ForkCondition::Block(MAINNET_LONDON_BLOCK)),
+            (Self::ArrowGlacier, ForkCondition::Block(MAINNET_ARROW_GLACIER_BLOCK)),
+            (Self::GrayGlacier, ForkCondition::Block(MAINNET_GRAY_GLACIER_BLOCK)),
             (
                 Self::Paris,
                 ForkCondition::TTD {
-                    activation_block_number: 15537394,
+                    activation_block_number: MAINNET_PARIS_BLOCK,
                     fork_block: None,
                     total_difficulty: uint!(58_750_000_000_000_000_000_000_U256),
                 },
