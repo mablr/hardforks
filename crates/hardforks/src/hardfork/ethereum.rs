@@ -10,6 +10,7 @@ use alloy_primitives::U256;
 hardfork!(
     /// The name of an Ethereum hardfork.
     #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+    #[derive(Default)]
     EthereumHardfork {
         /// Frontier: <https://blog.ethereum.org/2015/03/03/ethereum-launch-process>.
         Frontier,
@@ -46,6 +47,7 @@ hardfork!(
         /// Cancun: <https://github.com/ethereum/execution-specs/blob/master/network-upgrades/mainnet-upgrades/cancun.md>
         Cancun,
         /// Prague.
+        #[default]
         Prague,
         /// Osaka: <https://eips.ethereum.org/EIPS/eip-7607>
         Osaka,
