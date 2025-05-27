@@ -507,6 +507,28 @@ impl EthereumHardfork {
             (Self::Prague, ForkCondition::Timestamp(HOODI_PRAGUE_TIMESTAMP)),
         ]
     }
+
+    /// Convert an u64 into an `EthereumHardfork`.
+    pub const fn from_mainnet_block_number(num: u64) -> Self {
+        match num {
+            _i if num < MAINNET_HOMESTEAD_BLOCK => Self::Frontier,
+            _i if num < MAINNET_DAO_BLOCK => Self::Homestead,
+            _i if num < MAINNET_TANGERINE_BLOCK => Self::Dao,
+            _i if num < MAINNET_SPURIOUS_DRAGON_BLOCK => Self::Tangerine,
+            _i if num < MAINNET_BYZANTIUM_BLOCK => Self::SpuriousDragon,
+            _i if num < MAINNET_CONSTANTINOPLE_BLOCK => Self::Byzantium,
+            _i if num < MAINNET_ISTANBUL_BLOCK => Self::Constantinople,
+            _i if num < MAINNET_MUIR_GLACIER_BLOCK => Self::Istanbul,
+            _i if num < MAINNET_BERLIN_BLOCK => Self::MuirGlacier,
+            _i if num < MAINNET_LONDON_BLOCK => Self::Berlin,
+            _i if num < MAINNET_ARROW_GLACIER_BLOCK => Self::London,
+            _i if num < MAINNET_PARIS_BLOCK => Self::ArrowGlacier,
+            _i if num < MAINNET_SHANGHAI_BLOCK => Self::Paris,
+            _i if num < MAINNET_CANCUN_BLOCK => Self::Shanghai,
+            _i if num < MAINNET_PRAGUE_BLOCK => Self::Cancun,
+            _ => Self::Prague,
+        }
+    }
 }
 
 /// Helper methods for Ethereum forks.
