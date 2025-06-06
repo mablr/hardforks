@@ -43,6 +43,16 @@ impl ForkCondition {
         matches!(self, Self::Timestamp(_))
     }
 
+    /// Returns true if the fork condition is TTD based.
+    pub const fn is_ttd(&self) -> bool {
+        matches!(self, Self::TTD { .. })
+    }
+
+    /// Returns true if the fork condition is block based.
+    pub const fn is_block(&self) -> bool {
+        matches!(self, Self::Block(_))
+    }
+
     /// Checks whether the fork condition is satisfied at the given block.
     ///
     /// This will return true if the block number is equal or greater than the activation block of:
@@ -101,6 +111,16 @@ impl ForkCondition {
     pub const fn ttd(&self) -> Option<U256> {
         match self {
             Self::TTD { total_difficulty, .. } => Some(*total_difficulty),
+            _ => None,
+        }
+    }
+
+    /// Returns the block of the fork condition, if it is block number based, or if it's difficulty
+    /// based and the fork block is known.
+    pub const fn block_number(&self) -> Option<u64> {
+        match self {
+            Self::Block(number) => Some(*number),
+            Self::TTD { activation_block_number, .. } => Some(*activation_block_number),
             _ => None,
         }
     }
