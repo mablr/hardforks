@@ -274,6 +274,7 @@ impl EthereumHardfork {
             Self::Shanghai => Some(MAINNET_SHANGHAI_TIMESTAMP),
             Self::Cancun => Some(MAINNET_CANCUN_TIMESTAMP),
             Self::Prague => Some(MAINNET_PRAGUE_TIMESTAMP),
+            Self::Osaka => Some(MAINNET_OSAKA_TIMESTAMP),
             // upcoming hardforks
             _ => None,
         }
@@ -299,6 +300,8 @@ impl EthereumHardfork {
             | Self::Paris => Some(SEPOLIA_PARIS_TIMESTAMP),
             Self::Shanghai => Some(SEPOLIA_SHANGHAI_TIMESTAMP),
             Self::Cancun => Some(SEPOLIA_CANCUN_TIMESTAMP),
+            Self::Prague => Some(SEPOLIA_PRAGUE_TIMESTAMP),
+            Self::Osaka => Some(SEPOLIA_OSAKA_TIMESTAMP),
             _ => None,
         }
     }
@@ -323,6 +326,8 @@ impl EthereumHardfork {
             | Self::Paris => Some(HOLESKY_PARIS_TIMESTAMP),
             Self::Shanghai => Some(HOLESKY_SHANGHAI_TIMESTAMP),
             Self::Cancun => Some(HOLESKY_CANCUN_TIMESTAMP),
+            Self::Prague => Some(HOLESKY_PRAGUE_TIMESTAMP),
+            Self::Osaka => Some(HOLESKY_OSAKA_TIMESTAMP),
             _ => None,
         }
     }
@@ -330,7 +335,6 @@ impl EthereumHardfork {
     /// Retrieves the activation timestamp for the specified hardfork on the Hoodi testnet.
     pub const fn hoodi_activation_timestamp(&self) -> Option<u64> {
         match self {
-            Self::Prague => Some(HOODI_PRAGUE_TIMESTAMP),
             Self::Frontier
             | Self::Homestead
             | Self::Dao
@@ -348,6 +352,8 @@ impl EthereumHardfork {
             | Self::Paris
             | Self::Shanghai
             | Self::Cancun => Some(0),
+            Self::Prague => Some(HOODI_PRAGUE_TIMESTAMP),
+            Self::Osaka => Some(HOODI_OSAKA_TIMESTAMP),
             _ => None,
         }
     }
@@ -404,7 +410,7 @@ impl EthereumHardfork {
     }
 
     /// Ethereum mainnet list of hardforks.
-    pub const fn mainnet() -> [(Self, ForkCondition); 18] {
+    pub const fn mainnet() -> [(Self, ForkCondition); 19] {
         [
             (Self::Frontier, ForkCondition::Block(MAINNET_FRONTIER_BLOCK)),
             (Self::Homestead, ForkCondition::Block(MAINNET_HOMESTEAD_BLOCK)),
@@ -431,11 +437,12 @@ impl EthereumHardfork {
             (Self::Shanghai, ForkCondition::Timestamp(MAINNET_SHANGHAI_TIMESTAMP)),
             (Self::Cancun, ForkCondition::Timestamp(MAINNET_CANCUN_TIMESTAMP)),
             (Self::Prague, ForkCondition::Timestamp(MAINNET_PRAGUE_TIMESTAMP)),
+            (Self::Osaka, ForkCondition::Timestamp(MAINNET_OSAKA_TIMESTAMP)),
         ]
     }
 
     /// Ethereum sepolia list of hardforks.
-    pub const fn sepolia() -> [(Self, ForkCondition); 16] {
+    pub const fn sepolia() -> [(Self, ForkCondition); 17] {
         [
             (Self::Frontier, ForkCondition::Block(0)),
             (Self::Homestead, ForkCondition::Block(0)),
@@ -460,11 +467,12 @@ impl EthereumHardfork {
             (Self::Shanghai, ForkCondition::Timestamp(SEPOLIA_SHANGHAI_TIMESTAMP)),
             (Self::Cancun, ForkCondition::Timestamp(SEPOLIA_CANCUN_TIMESTAMP)),
             (Self::Prague, ForkCondition::Timestamp(SEPOLIA_PRAGUE_TIMESTAMP)),
+            (Self::Osaka, ForkCondition::Timestamp(SEPOLIA_OSAKA_TIMESTAMP)),
         ]
     }
 
     /// Ethereum holesky list of hardforks.
-    pub const fn holesky() -> [(Self, ForkCondition); 16] {
+    pub const fn holesky() -> [(Self, ForkCondition); 17] {
         [
             (Self::Frontier, ForkCondition::Block(0)),
             (Self::Homestead, ForkCondition::Block(0)),
@@ -489,11 +497,12 @@ impl EthereumHardfork {
             (Self::Shanghai, ForkCondition::Timestamp(HOLESKY_SHANGHAI_TIMESTAMP)),
             (Self::Cancun, ForkCondition::Timestamp(HOLESKY_CANCUN_TIMESTAMP)),
             (Self::Prague, ForkCondition::Timestamp(HOLESKY_PRAGUE_TIMESTAMP)),
+            (Self::Osaka, ForkCondition::Timestamp(HOLESKY_OSAKA_TIMESTAMP)),
         ]
     }
 
     /// Ethereum Hoodi list of hardforks.
-    pub const fn hoodi() -> [(Self, ForkCondition); 16] {
+    pub const fn hoodi() -> [(Self, ForkCondition); 17] {
         [
             (Self::Frontier, ForkCondition::Block(0)),
             (Self::Homestead, ForkCondition::Block(0)),
@@ -518,6 +527,7 @@ impl EthereumHardfork {
             (Self::Shanghai, ForkCondition::Timestamp(0)),
             (Self::Cancun, ForkCondition::Timestamp(0)),
             (Self::Prague, ForkCondition::Timestamp(HOODI_PRAGUE_TIMESTAMP)),
+            (Self::Osaka, ForkCondition::Timestamp(HOODI_OSAKA_TIMESTAMP)),
         ]
     }
 
@@ -566,24 +576,28 @@ impl EthereumHardfork {
                 _i if timestamp < MAINNET_SHANGHAI_TIMESTAMP => Self::Paris,
                 _i if timestamp < MAINNET_CANCUN_TIMESTAMP => Self::Shanghai,
                 _i if timestamp < MAINNET_PRAGUE_TIMESTAMP => Self::Cancun,
-                _ => Self::Prague,
+                _i if timestamp < MAINNET_OSAKA_TIMESTAMP => Self::Prague,
+                _ => Self::Osaka,
             }),
             NamedChain::Sepolia => Some(match timestamp {
                 _i if timestamp < SEPOLIA_PARIS_TIMESTAMP => Self::London,
                 _i if timestamp < SEPOLIA_SHANGHAI_TIMESTAMP => Self::Paris,
                 _i if timestamp < SEPOLIA_CANCUN_TIMESTAMP => Self::Shanghai,
                 _i if timestamp < SEPOLIA_PRAGUE_TIMESTAMP => Self::Cancun,
-                _ => Self::Prague,
+                _i if timestamp < SEPOLIA_OSAKA_TIMESTAMP => Self::Prague,
+                _ => Self::Osaka,
             }),
             NamedChain::Holesky => Some(match timestamp {
                 _i if timestamp < HOLESKY_SHANGHAI_TIMESTAMP => Self::Paris,
                 _i if timestamp < HOLESKY_CANCUN_TIMESTAMP => Self::Shanghai,
                 _i if timestamp < HOLESKY_PRAGUE_TIMESTAMP => Self::Cancun,
-                _ => Self::Prague,
+                _i if timestamp < HOLESKY_OSAKA_TIMESTAMP => Self::Prague,
+                _ => Self::Osaka,
             }),
             NamedChain::Hoodi => Some(match timestamp {
                 _i if timestamp < HOODI_PRAGUE_TIMESTAMP => Self::Cancun,
-                _ => Self::Prague,
+                _i if timestamp < HOODI_OSAKA_TIMESTAMP => Self::Prague,
+                _ => Self::Osaka,
             }),
             NamedChain::Arbitrum => Some(match timestamp {
                 _i if timestamp < ARBITRUM_ONE_SHANGHAI_TIMESTAMP => Self::Paris,
@@ -805,6 +819,7 @@ mod tests {
             "ShAnGhAI",
             "CaNcUn",
             "PrAguE",
+            "OsAkA",
             "Bpo1",
             "BPO2",
             "bpo3",
@@ -830,6 +845,7 @@ mod tests {
             EthereumHardfork::Shanghai,
             EthereumHardfork::Cancun,
             EthereumHardfork::Prague,
+            EthereumHardfork::Osaka,
             EthereumHardfork::Bpo1,
             EthereumHardfork::Bpo2,
             EthereumHardfork::Bpo3,
@@ -872,6 +888,8 @@ mod tests {
             (Chain::mainnet(), MAINNET_PARIS_TIMESTAMP, EthereumHardfork::Paris),
             (Chain::mainnet(), MAINNET_SHANGHAI_TIMESTAMP, EthereumHardfork::Shanghai),
             (Chain::mainnet(), MAINNET_CANCUN_TIMESTAMP, EthereumHardfork::Cancun),
+            (Chain::mainnet(), MAINNET_PRAGUE_TIMESTAMP, EthereumHardfork::Prague),
+            (Chain::mainnet(), MAINNET_OSAKA_TIMESTAMP, EthereumHardfork::Osaka),
             // Sepolia
             // At block 0: London
             (Chain::sepolia(), SEPOLIA_PARIS_TIMESTAMP - 1, EthereumHardfork::London),
@@ -881,6 +899,7 @@ mod tests {
             (Chain::sepolia(), SEPOLIA_CANCUN_TIMESTAMP, EthereumHardfork::Cancun),
             (Chain::sepolia(), SEPOLIA_PRAGUE_TIMESTAMP - 1, EthereumHardfork::Cancun),
             (Chain::sepolia(), SEPOLIA_PRAGUE_TIMESTAMP + 1, EthereumHardfork::Prague),
+            (Chain::sepolia(), SEPOLIA_OSAKA_TIMESTAMP, EthereumHardfork::Osaka),
             // Holesky
             // At block 0: Paris
             (Chain::holesky(), HOLESKY_PARIS_TIMESTAMP - 1, EthereumHardfork::Paris),
@@ -890,6 +909,12 @@ mod tests {
             (Chain::holesky(), HOLESKY_CANCUN_TIMESTAMP, EthereumHardfork::Cancun),
             (Chain::holesky(), HOLESKY_PRAGUE_TIMESTAMP - 1, EthereumHardfork::Cancun),
             (Chain::holesky(), HOLESKY_PRAGUE_TIMESTAMP + 1, EthereumHardfork::Prague),
+            (Chain::holesky(), HOLESKY_OSAKA_TIMESTAMP, EthereumHardfork::Osaka),
+            // Hoodi
+            // At block 0: Cancun
+            (Chain::hoodi(), HOODI_PRAGUE_TIMESTAMP - 1, EthereumHardfork::Cancun),
+            (Chain::hoodi(), HOODI_PRAGUE_TIMESTAMP, EthereumHardfork::Prague),
+            (Chain::hoodi(), HOODI_OSAKA_TIMESTAMP, EthereumHardfork::Osaka),
             // Arbitrum One
             // At block 0: Paris
             (Chain::arbitrum_mainnet(), ARBITRUM_ONE_PARIS_TIMESTAMP - 1, EthereumHardfork::Paris),

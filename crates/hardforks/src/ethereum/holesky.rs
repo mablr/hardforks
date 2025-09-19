@@ -15,3 +15,5 @@ pub const HOLESKY_SHANGHAI_TIMESTAMP: u64 = 1_696_000_704;
 pub const HOLESKY_CANCUN_TIMESTAMP: u64 = 1_707_305_664;
 /// Prague holesky hard fork activation timestamp is 1740434112.
 pub const HOLESKY_PRAGUE_TIMESTAMP: u64 = 1_740_434_112;
+/// Osaka holesky hard fork activation timestamp is 1759308480.
+pub const HOLESKY_OSAKA_TIMESTAMP: u64 = 1_759_308_480;
