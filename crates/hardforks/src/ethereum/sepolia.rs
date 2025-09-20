@@ -23,3 +23,5 @@ pub const SEPOLIA_SHANGHAI_TIMESTAMP: u64 = 1_677_557_088;
 pub const SEPOLIA_CANCUN_TIMESTAMP: u64 = 1_706_655_072;
 /// Prague sepolia hard fork activation timestamp is 1741159776.
 pub const SEPOLIA_PRAGUE_TIMESTAMP: u64 = 1_741_159_776;
+/// Osaka sepolia hard fork activation timestamp is 1760427360.
+pub const SEPOLIA_OSAKA_TIMESTAMP: u64 = 1_760_427_360;
