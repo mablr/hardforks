@@ -539,6 +539,38 @@ impl EthereumHardfork {
         ]
     }
 
+    /// Ethereum Devnet list of hardforks.
+    pub const fn devnet() -> [(Self, ForkCondition); 19] {
+        [
+            (Self::Frontier, ForkCondition::ZERO_BLOCK),
+            (Self::Homestead, ForkCondition::ZERO_BLOCK),
+            (Self::Dao, ForkCondition::ZERO_BLOCK),
+            (Self::Tangerine, ForkCondition::ZERO_BLOCK),
+            (Self::SpuriousDragon, ForkCondition::ZERO_BLOCK),
+            (Self::Byzantium, ForkCondition::ZERO_BLOCK),
+            (Self::Constantinople, ForkCondition::ZERO_BLOCK),
+            (Self::Petersburg, ForkCondition::ZERO_BLOCK),
+            (Self::Istanbul, ForkCondition::ZERO_BLOCK),
+            (Self::MuirGlacier, ForkCondition::ZERO_BLOCK),
+            (Self::Berlin, ForkCondition::ZERO_BLOCK),
+            (Self::London, ForkCondition::ZERO_BLOCK),
+            (
+                Self::Paris,
+                ForkCondition::TTD {
+                    activation_block_number: 0,
+                    fork_block: None,
+                    total_difficulty: U256::ZERO,
+                },
+            ),
+            (Self::Shanghai, ForkCondition::ZERO_TIMESTAMP),
+            (Self::Cancun, ForkCondition::ZERO_TIMESTAMP),
+            (Self::Prague, ForkCondition::ZERO_TIMESTAMP),
+            (Self::Osaka, ForkCondition::ZERO_TIMESTAMP),
+            (Self::Bpo1, ForkCondition::ZERO_TIMESTAMP),
+            (Self::Bpo2, ForkCondition::ZERO_TIMESTAMP),
+        ]
+    }
+
     /// Convert an u64 into an `EthereumHardfork`.
     pub const fn from_mainnet_block_number(num: u64) -> Self {
         match num {
@@ -787,6 +819,11 @@ impl EthereumChainHardforks {
     /// Creates a new [`EthereumChainHardforks`] with Hoodi configuration.
     pub fn hoodi() -> Self {
         Self::new(EthereumHardfork::hoodi())
+    }
+
+    /// Creates a new [`EthereumChainHardforks`] with Devnet configuration.
+    pub fn devnet() -> Self {
+        Self::new(EthereumHardfork::devnet())
     }
 }
 
