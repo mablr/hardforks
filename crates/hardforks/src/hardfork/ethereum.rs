@@ -141,6 +141,7 @@ impl EthereumHardfork {
     const fn holesky_activation_block(&self) -> Option<u64> {
         match self {
             Self::Frontier
+            | Self::Homestead
             | Self::Dao
             | Self::Tangerine
             | Self::SpuriousDragon
@@ -165,6 +166,7 @@ impl EthereumHardfork {
     const fn hoodi_activation_block(&self) -> Option<u64> {
         match self {
             Self::Frontier
+            | Self::Homestead
             | Self::Dao
             | Self::Tangerine
             | Self::SpuriousDragon
@@ -301,6 +303,8 @@ impl EthereumHardfork {
             Self::Cancun => Some(SEPOLIA_CANCUN_TIMESTAMP),
             Self::Prague => Some(SEPOLIA_PRAGUE_TIMESTAMP),
             Self::Osaka => Some(SEPOLIA_OSAKA_TIMESTAMP),
+            Self::Bpo1 => Some(SEPOLIA_BPO1_TIMESTAMP),
+            Self::Bpo2 => Some(SEPOLIA_BPO2_TIMESTAMP),
             _ => None,
         }
     }
@@ -327,6 +331,8 @@ impl EthereumHardfork {
             Self::Cancun => Some(HOLESKY_CANCUN_TIMESTAMP),
             Self::Prague => Some(HOLESKY_PRAGUE_TIMESTAMP),
             Self::Osaka => Some(HOLESKY_OSAKA_TIMESTAMP),
+            Self::Bpo1 => Some(HOLESKY_BPO1_TIMESTAMP),
+            Self::Bpo2 => Some(HOLESKY_BPO2_TIMESTAMP),
             _ => None,
         }
     }
@@ -353,6 +359,8 @@ impl EthereumHardfork {
             | Self::Cancun => Some(0),
             Self::Prague => Some(HOODI_PRAGUE_TIMESTAMP),
             Self::Osaka => Some(HOODI_OSAKA_TIMESTAMP),
+            Self::Bpo1 => Some(HOODI_BPO1_TIMESTAMP),
+            Self::Bpo2 => Some(HOODI_BPO2_TIMESTAMP),
             _ => None,
         }
     }
@@ -1045,4 +1053,34 @@ mod tests {
             assert_eq!(fork.activation_timestamp(Chain::mainnet()), Some(timestamp));
         }
     }
+
+    macro_rules! test_chain_config {
+        ($modname:ident, $ts_fn:ident, $bn_fn:ident) => {
+            mod $modname {
+                use super::*;
+                #[test]
+                fn test_chain_config() {
+                    for (fork, condition) in EthereumHardfork::$modname() {
+                        match condition {
+                            ForkCondition::Timestamp(ts) => {
+                                assert_eq!(fork.$ts_fn(), Some(ts));
+                            }
+                            ForkCondition::Block(bn) => {
+                                assert_eq!(fork.$bn_fn(), Some(bn));
+                            }
+                            ForkCondition::TTD { activation_block_number, .. } => {
+                                assert_eq!(fork.$bn_fn(), Some(activation_block_number));
+                            }
+                            _ => {}
+                        }
+                    }
+                }
+            }
+        };
+    }
+
+    test_chain_config!(mainnet, mainnet_activation_timestamp, mainnet_activation_block);
+    test_chain_config!(sepolia, sepolia_activation_timestamp, sepolia_activation_block);
+    test_chain_config!(holesky, holesky_activation_timestamp, holesky_activation_block);
+    test_chain_config!(hoodi, hoodi_activation_timestamp, hoodi_activation_block);
 }
