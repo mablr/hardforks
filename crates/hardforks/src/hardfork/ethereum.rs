@@ -419,7 +419,7 @@ impl EthereumHardfork {
     }
 
     /// Ethereum mainnet list of hardforks.
-    pub const fn mainnet() -> [(Self, ForkCondition); 18] {
+    pub const fn mainnet() -> [(Self, ForkCondition); 21] {
         [
             (Self::Frontier, ForkCondition::Block(MAINNET_FRONTIER_BLOCK)),
             (Self::Homestead, ForkCondition::Block(MAINNET_HOMESTEAD_BLOCK)),
@@ -446,6 +446,9 @@ impl EthereumHardfork {
             (Self::Shanghai, ForkCondition::Timestamp(MAINNET_SHANGHAI_TIMESTAMP)),
             (Self::Cancun, ForkCondition::Timestamp(MAINNET_CANCUN_TIMESTAMP)),
             (Self::Prague, ForkCondition::Timestamp(MAINNET_PRAGUE_TIMESTAMP)),
+            (Self::Osaka, ForkCondition::Timestamp(MAINNET_OSAKA_TIMESTAMP)),
+            (Self::Bpo1, ForkCondition::Timestamp(MAINNET_BPO1_TIMESTAMP)),
+            (Self::Bpo2, ForkCondition::Timestamp(MAINNET_BPO2_TIMESTAMP)),
         ]
     }
 
