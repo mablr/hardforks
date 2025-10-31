@@ -625,7 +625,8 @@ impl EthereumHardfork {
                 _i if timestamp < MAINNET_SHANGHAI_TIMESTAMP => Self::Paris,
                 _i if timestamp < MAINNET_CANCUN_TIMESTAMP => Self::Shanghai,
                 _i if timestamp < MAINNET_PRAGUE_TIMESTAMP => Self::Cancun,
-                _ => Self::Prague,
+                _i if timestamp < MAINNET_OSAKA_TIMESTAMP => Self::Prague,
+                _ => Self::Osaka,
             }),
             NamedChain::Sepolia => Some(match timestamp {
                 _i if timestamp < SEPOLIA_PARIS_TIMESTAMP => Self::London,
