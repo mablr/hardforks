@@ -276,7 +276,9 @@ impl EthereumHardfork {
             Self::Shanghai => Some(MAINNET_SHANGHAI_TIMESTAMP),
             Self::Cancun => Some(MAINNET_CANCUN_TIMESTAMP),
             Self::Prague => Some(MAINNET_PRAGUE_TIMESTAMP),
-            // upcoming hardforks
+            Self::Osaka => Some(MAINNET_OSAKA_TIMESTAMP),
+            Self::Bpo1 => Some(MAINNET_BPO1_TIMESTAMP),
+            Self::Bpo2 => Some(MAINNET_BPO2_TIMESTAMP),
             _ => None,
         }
     }
